@@ -18,26 +18,36 @@ app.get("/", function (req, res) {
   res.sendFile(__dirname + "/views/index.html");
 });
 
-app.get("/api/:date?", function (req, res) {
-  let date_string = req.params.date;
-  let date;
-  if (!date_string) {
-    date = new Date();
-  } else {
-    if (!isNaN(Number(date_string))) {
-      date = new Date(parseInt(date_string));
-    } else {
-      date = new Date(date_string);
-    }
-  }
+// app.get("/api/:date?", function (req, res) {
+//   let date_string = req.params.date;
+//   let date;
+//   if (!date_string) {
+//     date = new Date();
+//   } else {
+//     if (!isNaN(Number(date_string))) {
+//       date = new Date(parseInt(date_string));
+//     } else {
+//       date = new Date(date_string);
+//     }
+//   }
 
-  if (date.toString() === "Invalid Date") {
-    return res.json({ error: "Invalid Date" });
-  }
+//   if (date.toString() === "Invalid Date") {
+//     return res.json({ error: "Invalid Date" });
+//   }
+
+//   res.json({
+//     unix: date.getTime(),
+//     utc: date.toUTCString(),
+//   });
+// });
+
+app.get("/api/whoami", function (req, res) {
 
   res.json({
-    unix: date.getTime(),
-    utc: date.toUTCString(),
+    ipaddress:
+      req.headers["x-forwarded-for"]?.split(",")[0] || req.socket.remoteAddress,
+    language: req.headers["accept-language"],
+    software: req.headers["user-agent"],
   });
 });
 
