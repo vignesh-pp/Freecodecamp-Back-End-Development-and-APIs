@@ -18,6 +18,7 @@ app.get("/", function (req, res) {
   res.sendFile(__dirname + "/views/index.html");
 });
 
+//time
 // app.get("/api/:date?", function (req, res) {
 //   let date_string = req.params.date;
 //   let date;
@@ -41,6 +42,7 @@ app.get("/", function (req, res) {
 //   });
 // });
 
+//header parser
 app.get("/api/whoami", function (req, res) {
 
   res.json({
@@ -50,6 +52,8 @@ app.get("/api/whoami", function (req, res) {
     software: req.headers["user-agent"],
   });
 });
+
+//url shortner
 
 // your first API endpoint...
 app.get("/api/hello", function (req, res) {
